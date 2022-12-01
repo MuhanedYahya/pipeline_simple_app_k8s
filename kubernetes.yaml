@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+spec:
+  selector:
+    app: pipline-v1-app
+  ports:
+    - protocol: 'TCP'
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: pipline-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pipline-v1-app
+  template:
+    metadata:
+      labels:
+        app: pipline-v1-app
+    spec:
+      containers:
+        - name: pipline-app
+          image: muhanedyahya/pipline-v1-app:latest

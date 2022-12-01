@@ -1,0 +1,8 @@
+.gitignore
+.dockerignore
+node_modules
+app.test.js
+package-lock.json
+Jenkinsfile
+prometheus.yml
+kubernetes.yaml
