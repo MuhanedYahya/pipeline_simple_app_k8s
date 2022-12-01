@@ -46,7 +46,7 @@
                 }
                 sh '''#!/bin/bash
 
-                    echo "Running the app in kubernetes..."
+                    echo "Running the app in kubernetes...";
                     if  kubectl apply -f kubernetes.yaml;then
                         echo "Deployed seccessfully.";
                         echo "Running the service localy with minikube....";
