@@ -47,7 +47,7 @@
                 sh '''#!/bin/bash
 
                     echo "Running the app in kubernetes...";
-                    if  kubectl apply -f kubernetes.yaml;then
+                    if  kubectl apply -f kubernetes.yaml--kubeconfig=/home/mohannad/.kube/config;then
                         echo "Deployed seccessfully.";
                         echo "Running the service localy with minikube....";
                         echo "pipline app deployed by kubernetes on :";
