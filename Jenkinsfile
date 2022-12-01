@@ -27,7 +27,7 @@
                         echo "image successfully created.";
                         echo "pushing image to docker hub.....";
                         if docker push muhanedyahya/pipline-v1-app;then
-                            echo "image pushed seccessfully."
+                            echo "image pushed seccessfully.";
                         else
                             echo "error in pushing image!!! something went wrong";
                         fi
@@ -47,7 +47,7 @@
                         echo "Deployed seccessfully.";
                         echo "Running the service localy with minikube....";
                         echo "pipline app deployed by kubernetes on :";
-                        minikube service --url app-service
+                        minikube service --url app-service;
                     else
                         echo "Error in deploying on kubernetes";
                     fi
