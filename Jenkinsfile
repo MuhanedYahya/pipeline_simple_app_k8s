@@ -44,10 +44,10 @@
                 script {
                     last_started = env.STAGE_NAME
                 }
-                withKubeConfig([credentialsId: 'minikube', serverUrl: 'https://192.168.49.2:8443']) {
+                withKubeConfig([credentialsId: 'mohannad', serverUrl: 'https://192.168.49.2:8443']) {
                     sh '''#!/bin/bash
                         echo "Running the app in kubernetes...";
-                        if  kubectl apply -f kubernetes.yaml --kubeconfig=/home/mohannad/.kube/config;then
+                        if  kubectl apply -f kubernetes.yaml;then
                             echo "Deployed seccessfully.";
                             echo "Running the service localy with minikube....";
                             echo "pipline app deployed by kubernetes on :";
