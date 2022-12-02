@@ -44,18 +44,19 @@
                 script {
                     last_started = env.STAGE_NAME
                 }
-                sh '''#!/bin/bash
-
-                    echo "Running the app in kubernetes...";
-                    if  kubectl apply -f kubernetes.yaml --kubeconfig=/home/mohannad/.kube/config;then
-                        echo "Deployed seccessfully.";
-                        echo "Running the service localy with minikube....";
-                        echo "pipline app deployed by kubernetes on :";
-                        minikube service --url app-service;
-                    else
-                        echo "Error in deploying on kubernetes";
-                    fi
-                ''' 
+                withKubeConfig([credentialsId: 'minikube', serverUrl: 'https://192.168.49.2:8443']) {
+                    sh '''#!/bin/bash
+                        echo "Running the app in kubernetes...";
+                        if  kubectl apply -f kubernetes.yaml --kubeconfig=/home/mohannad/.kube/config;then
+                            echo "Deployed seccessfully.";
+                            echo "Running the service localy with minikube....";
+                            echo "pipline app deployed by kubernetes on :";
+                            minikube service --url app-service;
+                        else
+                            echo "Error in deploying on kubernetes";
+                        fi
+                    '''
+                }
             }
         }
         stage('Monitor') { 
