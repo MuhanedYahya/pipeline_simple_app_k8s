@@ -54,10 +54,9 @@
                     sh '''#!/bin/bash
                         echo "Running the app in kubernetes...";
                         if  kubectl apply -f kubernetes.yaml;then
-                            echo "Deployed seccessfully.";
-                            echo "Running the service locally with minikube....";
-                            echo "pipline app deployed by kubernetes on :";
-                            minikube service --url app-service;
+                            echo "Node app deployed seccessfully on kubernetes.";
+                            echo "you can view the app by running a service using minikube..";
+                            echo "minikube service app-service";
                         else
                             echo "Error in deploying on kubernetes";
                         fi
