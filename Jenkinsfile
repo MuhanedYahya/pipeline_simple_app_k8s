@@ -3,10 +3,6 @@
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker')
     }
-    options {
-        failFast true
-        // This will cause the pipeline to stop execution if any stage fails
-    }
     stages {
         stage('Testing') { 
             steps {
