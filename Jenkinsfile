@@ -51,8 +51,17 @@
                 }
                 withKubeConfig([credentialsId: 'kubernetes']) {
                     sh '''#!/bin/bash
-                        echo "Running the app in kubernetes...";
-                        if  kubectl apply -f kubernetes.yaml;then
+                        if
+                            echo "Running the app in kubernetes...";
+                            status=$(kubectl get deployment pipline-deployment -o jsonpath='{.status.conditions[?(@.type=="Available")].status}')
+                            if [ "$status" == "True" ]; then
+                                kubectl delete -f kubernetes.yaml;
+                                kubectl apply -f kubernetes.yaml;
+                                
+                            else
+                                kubectl apply -f kubernetes.yaml;
+                            fi
+                        ;then 
                             echo "Node app deployed seccessfully on kubernetes.";
                             echo "you can view the app by running a service using minikube..";
                             echo "minikube service app-service";
