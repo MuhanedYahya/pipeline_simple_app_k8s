@@ -1,5 +1,8 @@
  pipeline {
     agent any 
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('docker')
+    }
     stages {
         stage('Test') { 
             steps {
@@ -23,20 +26,23 @@
                 }
                 sh '''#!/bin/bash
                     echo "building docker image...";
-                    if docker build . -t muhanedyahya/pipline-v1-app;then
-                        echo "image successfully created.";
-                        echo "pushing image to docker hub.....";
-                        if docker login -u muhanedyahya -p 'Myahya123!root';then
-                            if docker push muhanedyahya/pipline-v1-app;then
-                                echo "image pushed seccessfully.";
-                            else
-                                echo "error in pushing image!!! something went wrong";
-                            fi
-                        else 
-                            echo "cant login to docker hub!!!";
+                    if echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin;then
+                        if docker build . -t muhanedyahya/pipline-v1-app;then
+                            echo "image successfully created.";
+                            echo "pushing image to docker hub.....";
+                                if docker push muhanedyahya/pipline-v1-app;then
+                                    echo "image pushed seccessfully.";
+                                else
+                                    echo "error in pushing image!!! something went wrong";
+                                fi
+                        else
+                            sh 'echo cant build the image';
                         fi
-                    fi
-                ''' 
+                    else 
+                        echo "cant login to docker hub!!!";
+                    fi    
+                    
+                '''  
             }
         }
         stage('Deploy') { 
@@ -44,12 +50,12 @@
                 script {
                     last_started = env.STAGE_NAME
                 }
-                withKubeConfig([credentialsId: 'mohannad', serverUrl: 'https://192.168.49.2:8443']) {
+                withKubeConfig([credentialsId: 'config']) {
                     sh '''#!/bin/bash
                         echo "Running the app in kubernetes...";
                         if  kubectl apply -f kubernetes.yaml;then
                             echo "Deployed seccessfully.";
-                            echo "Running the service localy with minikube....";
+                            echo "Running the service locally with minikube....";
                             echo "pipline app deployed by kubernetes on :";
                             minikube service --url app-service;
                         else

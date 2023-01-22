@@ -22,8 +22,8 @@ app.get('/', (req, res) => {
       }
     </style>
     <div>
-      <h1>Wellcome To The</h1>
-      <h1>Pipline App!</h1>
+      <h1>Wellcome To The Node app</h1>
+      <h1>Running using Jenkins && Kubernetes</h1>
     </div>
     
   `);

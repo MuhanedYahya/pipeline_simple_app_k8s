@@ -28,3 +28,5 @@ spec:
       containers:
         - name: pipline-app
           image: muhanedyahya/pipline-v1-app:latest
+      imagePullSecrets:
+        - name: regcred
