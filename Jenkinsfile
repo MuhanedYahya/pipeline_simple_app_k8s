@@ -50,7 +50,7 @@
                 script {
                     last_started = env.STAGE_NAME
                 }
-                withKubeConfig([credentialsId: 'config']) {
+                withKubeConfig([credentialsId: 'kubernetes']) {
                     sh '''#!/bin/bash
                         echo "Running the app in kubernetes...";
                         if  kubectl apply -f kubernetes.yaml;then
