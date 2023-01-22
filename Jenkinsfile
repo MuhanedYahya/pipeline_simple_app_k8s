@@ -4,7 +4,7 @@
         DOCKERHUB_CREDENTIALS = credentials('docker')
     }
     stages {
-        stage('Test') { 
+        stage('Testing') { 
             steps {
                 script {
                     last_started = env.STAGE_NAME
@@ -45,7 +45,7 @@
                 '''  
             }
         }
-        stage('Deploy') { 
+        stage('Deploy on kubernetes') { 
             steps {
                 script {
                     last_started = env.STAGE_NAME
