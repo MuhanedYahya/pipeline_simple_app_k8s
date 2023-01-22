@@ -3,6 +3,10 @@
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker')
     }
+    options {
+        failFast true
+        // This will cause the pipeline to stop execution if any stage fails
+    }
     stages {
         stage('Testing') { 
             steps {
@@ -27,10 +31,10 @@
                 sh '''#!/bin/bash
                     echo "building docker image...";
                     if echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin;then
-                        if docker build . -t muhanedyahya/pipline-v1-app;then
+                        if docker build . -t muhanedyahya/pipline-v1-app:latest;then
                             echo "image successfully created.";
                             echo "pushing image to docker hub.....";
-                                if docker push muhanedyahya/pipline-v1-app;then
+                                if docker push muhanedyahya/pipline-v1-app:latest;then
                                     echo "image pushed seccessfully.";
                                 else
                                     echo "error in pushing image!!! something went wrong";
@@ -41,7 +45,6 @@
                     else 
                         echo "cant login to docker hub!!!";
                     fi    
-                    
                 '''  
             }
         }
@@ -121,7 +124,7 @@
              mail(body: 'All stages of your project have been successfully prepared and deployed.', subject: 'Project successfully deployed!', to: 'yahya.muhaned@gmail.com')
          }  
          failure {  
-            mail(body: "An error occurred during the $last_started stage", subject: "$last_started stage Alert !!", to: 'yahya.muhaned@gmail.com') 
+            mail(body: "An error occurred during the ${currentBuild.currentStage} stage", subject: "${currentBuild.currentStage} stage Alert !!", to: 'yahya.muhaned@gmail.com') 
          }  
 
      }  
