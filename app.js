@@ -17,13 +17,13 @@ app.get('/', (req, res) => {
         width: 100%;
         height: 100%;
       }
-      h1{
+      h1,h2{
         color: #0054E0;
       }
     </style>
     <div>
-      <h2>Wellcome To The Node app</h2>
-      <h3>Running using Jenkins && Kubernetes</h3>
+      <h1>Wellcome To Node app</h1>
+      <h2>Running using Jenkins && Kubernetes</h2>
     </div>
     
   `);
