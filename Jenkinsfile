@@ -55,7 +55,6 @@
                             echo "Running the app in kubernetes...";
                             status=$(kubectl get deployment pipline-deployment -o jsonpath='{.status.conditions[?(@.type=="Available")].status}')
                             if [ "$status" == "True" ]; then
-                                kubectl delete -f kubernetes.yaml;
                                 kubectl apply -f kubernetes.yaml;
                             else
                                 kubectl apply -f kubernetes.yaml;
