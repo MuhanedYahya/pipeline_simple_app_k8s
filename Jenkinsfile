@@ -55,7 +55,7 @@
                             echo "Running the app in kubernetes...";
                             status=$(kubectl get deployment pipline-deployment -o jsonpath='{.status.conditions[?(@.type=="Available")].status}')
                             if [ "$status" == "True" ]; then
-                                kubectl apply -f kubernetes.yaml;
+                                kubectl rollout restart deployment/pipline-deployment
                             else
                                 kubectl apply -f kubernetes.yaml;
                             fi
