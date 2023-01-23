@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
         width: 100%;
         height: 100%;
       }
-      h1,h2{
+      h1{
         color: #0054E0;
       }
     </style>
