@@ -57,11 +57,10 @@
                             if [ "$status" == "True" ]; then
                                 kubectl delete -f kubernetes.yaml;
                                 kubectl apply -f kubernetes.yaml;
-                                
                             else
                                 kubectl apply -f kubernetes.yaml;
                             fi
-                        ;then 
+                        then 
                             echo "Node app deployed seccessfully on kubernetes.";
                             echo "you can view the app by running a service using minikube..";
                             echo "minikube service app-service";
