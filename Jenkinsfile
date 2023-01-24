@@ -127,7 +127,7 @@
              mail(body: 'All stages of your project have been successfully prepared and deployed.', subject: 'Project successfully deployed!', to: 'yahya.muhaned@gmail.com')
          }  
          failure {  
-            mail(body: "An error occurred during the ${currentBuild.currentStage} stage", subject: "${currentBuild.currentStage} stage Alert !!", to: 'yahya.muhaned@gmail.com') 
+            mail(body: "An error occurred during the $last_started stage", subject: "$last_started stage Alert !!", to: 'yahya.muhaned@gmail.com') 
          }  
 
      }  
