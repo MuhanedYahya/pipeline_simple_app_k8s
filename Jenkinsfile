@@ -9,7 +9,7 @@
                 script {
                     last_started = env.STAGE_NAME
                 }
-                sh '''#!/bin/bash
+                sh '''#!/bin/bash -e
                     echo "installing jest framework...";
                     if npm install --save-dev jest;then
                         echo "running jest testing...";
@@ -33,13 +33,13 @@
                                 if docker push muhanedyahya/pipline-v1-app:latest;then
                                     echo "image pushed seccessfully.";
                                 else
-                                    echo "error in pushing image!!! something went wrong";
+                                    echo "error in pushing image!!! something went wrong";exit 1;
                                 fi
                         else
-                            sh 'echo cant build the image';
+                            sh 'echo cant build the image';exit 1;
                         fi
                     else 
-                        echo "cant login to docker hub!!!";
+                        echo "cant login to docker hub!!!";exit 1;
                     fi    
                 '''  
             }
@@ -64,7 +64,7 @@
                             echo "you can view the app by running a service using minikube..";
                             echo "minikube service app-service";
                         else
-                            echo "Error in deploying on kubernetes";
+                            echo "Error in deploying on kubernetes";exit 1;
                         fi
                     '''
                 }
@@ -112,10 +112,10 @@
                                 echo "username:admin && password admin";
                                 
                             else
-                                echo "Error in deploying Grafana. check your monitor stage!";
+                                echo "Error in deploying Grafana. check your monitor stage!";exit 1;
                             fi
                     else
-                        echo "Error in deploying prometheus also Grafana will not deployed. check your monitor stage!";
+                        echo "Error in deploying prometheus also Grafana will not deployed. check your monitor stage!";exit 1;
                     fi
                 ''' 
             }
